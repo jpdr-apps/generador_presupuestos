@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
+    <title>Sandbox</title>
+
+    <!-- Material Icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Courier+Prime&family=Montserrat:wght@100;300;400;900&family=Ubuntu&display=swap&family=Merriweather+Sans&display=swap&family=Roboto&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/5.0/examples/sidebars/sidebars.css">
+
+    <link rel="stylesheet" href="/styles.css">
+
+    <!-- feather icons-->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+    <!-- Bootstrap Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+        integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+
+    <!--jsPDF-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!--html2canvas-->
+    <script src="https://github.com/niklasvh/html2canvas/releases/download/v1.4.1/html2canvas.min.js"></script>
+
+    <!-- XLSX-->
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
+
+    <!-- Filesaver-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
+        integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"> </script>
+
+    <!--js-Cookie-->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+
+</head>
+
+<body>
+
+
+    <div class="container-fluid">
+
+        <div class="row fixed-top  menu-toolbar bg-dark">
+            <div class="col-12">
+                <div class="row menu-toolbar-title">
+                    <h1>Generador de presupuestos</h1>
+                </div>
+                <div class="row menu-toolbar-options">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-3">
+                        <!-- Button trigger modal -->
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" id="hiddenModalButton" style="display: none;">
+                            Launch static backdrop modal
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row flex-nowrap menu-content">
+
+            <form id="formProfile" action="/index.html">
+
+                <div class="mb-3 menu-content-row">
+                    <h4 class="">Archivo Excel origen de los productos:</h4>
+                    <div class="input-group">
+                        <div class="col-6">
+                            <label class="form-control" id="formStep1Label"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 menu-content-row">
+                    <h4>Seleccionar las hojas que contienen productos:</h4>
+                    <div class="input-group">
+                        <div class="col-3">
+                            <label>Hojas disponibles</label>
+                            <select id="formStep2LeftSheets" class="form-select" multiple aria-label="multiple select "
+                                size="5">
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-primary" id="formStep2ButtonAgregar">Agregar -></button>
+                            <button class="btn btn-primary" id="formStep2ButtonQuitar"> <- Quitar</button>
+                        </div>
+                        <div class="col-3">
+                            <label>Hojas elegidas</label>
+                            <select id="formStep2RightSheets" class="form-select" multiple aria-label="multiple select "
+                                size="5">
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <button class="btn btn-primary" id="formStep2ButtonConfirmar">Confirmar Hojas</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 menu-content-row">
+                    <h4 class="">Por cada hoja, definir las columnas que tienen la Descripción y el Precio
+                        Unitario:</h4>
+                    <div class="input-group align-items-center">
+                        <div class="col-3">
+                            <label>Hojas elegidas</label>
+                            <select id="formStep3Sheets" class="form-select" multiple aria-label="multiple select "
+                                size="5">
+
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label>Definir columna "Descripción"</label>
+                            <select id="formStep3DescColumns" class="form-select" multiple aria-label="multiple select "
+                                size="5">
+
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label>Definir columna "Precio Unitario"</label>
+                            <select id="formStep3PriceColumns" class="form-select" multiple
+                                aria-label="multiple select " size="5">
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label>N° de fila de los títulos (comunmente 1)</label>
+                            <select id="formStep3TitlesRow" class="form-select" multiple aria-label="select " size="5">
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <button class="btn btn-primary" id="formStep3ButtonConfirmar">Confirmar selección de
+                        columnas</button>
+
+                </div>
+
+
+
+                <div class="mb-3 menu-content-row">
+
+                    <div class="input-group align-items-center">
+                        <div class="col-6">
+                            <label>Hojas definidas</label>
+                            <select id="formStep3Data" class="form-select" multiple aria-label="multiple select "
+                                size="5">
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-primary" id="formStep3ButtonRevertir">Revertir selección de
+                                columnas</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="mb-3 menu-content-row">
+                    <h4>Controlar y luego presionar "Finalizar" para Salir:</h4>
+                    <div class="input-group">
+                        <div class="input-group">
+                            <div class="col-3">
+                                <button id="formStep4Submit" type="submit" class="btn btn-primary">Finalizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Logica JS -->
+    <script src="/js/logica_general.js"></script>
+    <script src="/js/logica_persistencia.js"></script>
+    <script src="/js/logica_setup.js"></script>
+
+</body>
+
+</html>

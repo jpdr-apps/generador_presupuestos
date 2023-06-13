@@ -1,0 +1,548 @@
+body {
+    background-color: rgba(212, 232, 238, 0.505);
+}
+
+.menu-toolbar {
+    color: white;
+    /*padding-top: 1%;*/
+
+}
+
+.menu-toolbar-title {
+    padding-top: 2%;
+    text-align: center;
+}
+
+.menu-sidebar {
+    background-color: white;
+    position: fixed;
+    /*margin-top: 1%;*/
+    /*height: 50%;*/
+    margin-top: 5%;
+    width: 20%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 1px 1px 0px 0px darkgray;
+    z-index: 100;
+}
+
+.menu-sidebar-container {
+    padding: 5%;
+}
+
+.menu-sidebar-container button {
+    margin-top: 10%;
+    box-shadow: 1px 1px 1px 1px darkgray;
+}
+
+.menu-sidebar-container input {
+    margin-bottom: 3%;
+    padding-left: 2%;
+}
+
+.menu-sidebar-element {
+    width: 100%;
+    margin-top: 3%;
+}
+
+
+
+
+
+
+
+
+
+.content-to-print {
+    background-color: white;
+    min-width: 220mm;
+    /* min-width: 210mm*/
+    min-height: 310mm;
+    /*min-width: 297mm;*/
+    margin-top: 5%;
+    padding-left: 0;
+    padding-right: 0;
+    /*font-family: 'Merriweather Sans', sans-serif;*/
+    /*'Roboto', sans-serif;*/
+    box-shadow: -2px -2px 50px 10px rgba(0, 0, 0, 0.4);
+    font-size: 14px;
+    color: rgb(46, 45, 45);
+
+}
+
+.content-to-print-empty {
+
+    padding-left: 25%;
+    padding-top: 100px;
+    text-align: center;
+
+}
+
+.content-outside {
+    width: auto;
+}
+
+
+
+.icon {
+    width: 32px;
+    height: 32px;
+}
+
+.image {
+    margin: 5px;
+    height: 200px;
+    width: 240px;
+}
+
+
+.menu-toolbar-options {
+    padding: 1%;
+    text-align: center;
+
+}
+
+.menu-toolbar-options-button {
+    min-width: 300px;
+}
+
+
+.menu-content {
+    font-family: 'Montserrat';
+    margin-top: 2%;
+    padding-bottom: 100px;
+}
+
+.menu-content-row {
+    padding-left: 3%;
+    padding-top: 3%;
+}
+
+.menu-content-row h4 {
+    padding-bottom: 1%;
+}
+
+.menu-content-row .col-3,
+.col-6 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.menu-content #formStep3Data {
+    overflow-x: scroll;
+}
+
+.menu-content-form-control {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.menu-content-form-prev {
+
+    font-size: 10px;
+    letter-spacing: 1.5px;
+}
+
+.menu-content-form-prev-image {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 100px;
+    width: 120px;
+}
+
+
+.content-header {
+    /*min-height: 14%;*/
+    padding-left: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    /*padding-top: 100px;*/
+    /*height: 25%;*/
+    /*background-color: lightblue;*/
+    /*color: white;*/
+
+    margin: 0;
+}
+
+.no-valido-como-factura {
+    margin-top: 3%;
+    text-align: center;
+    margin-bottom: 1%;
+}
+
+.no-valido-como-factura div h5 {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+}
+
+
+
+.content-header-logo {
+    padding-top: 1%;
+    height: max-content;
+    font-size: 18px;
+}
+
+.content-header-logo img {
+    border-style: solid;
+    border-width: 1px;
+    border-color: darkgray;
+    position: relative;
+    top: 15%;
+    height: 6em;
+}
+
+
+.content-header-info {
+    padding-top: 0%;
+
+}
+
+.content-header-info .row input {
+    border-style: none;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    line-height: 2;
+
+}
+
+.content-header-info input[type="text"]:focus-visible {
+    outline: 1px solid;
+    outline-offset: -1px;
+    outline-color: rgba(41, 133, 186, 0.5);
+}
+
+.custom-info {
+    outline-style: dashed;
+    outline-width: 1px;
+    outline-color: orange;
+}
+
+#formLogo,
+#formInfo1,
+#formInfo2,
+#formInfo3,
+#formInfo4,
+#formInfo5,
+#docFooter1,
+#docFooter2,
+#docFooter3 {
+    cursor: pointer;
+}
+
+
+
+
+@keyframes glowing {
+    0% {
+        background-color: #2ba805;
+        /*box-shadow: 0 0 5px #2ba805;*/
+    }
+
+    50% {
+        background-color: #49e819;
+        /*box-shadow: 0 0 20px #49e819;*/
+    }
+
+    100% {
+        background-color: #2ba805;
+        /*box-shadow: 0 0 5px #2ba805;*/
+    }
+}
+
+.btn-success:enabled {
+    margin-top: 10%;
+    box-shadow: 1px 1px 1px 1px darkgray;
+    animation: glowing 1300ms infinite;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.content-body {
+    padding: 3%;
+    margin: 0;
+    margin-top: 0%;
+    height: 220mm;
+}
+
+
+.content-body-cell-title,
+.content-body-cell-title-autocomplete,
+.content-body-cell-row-inputgroup,
+.content-body-cell-row-inputgroup-parent {
+    min-height: 30px;
+    min-width: 150px;
+    text-align: center;
+    vertical-align: middle;
+    padding-bottom: 3px;
+}
+
+.content-body-cell-title {
+    padding-bottom: 0;
+}
+
+.content-body-cell-title-autocomplete {
+    margin-top: 5px;
+}
+
+.content-body-cell-row-inputgroup,
+.content-body-cell-row-inputgroup-parent {
+    padding: 0;
+    width: auto;
+}
+
+.content-body-cell-row-inputgroup-parent {
+    padding-bottom: 3px;
+}
+
+.content-body-cell-title-item {
+    font-size: 14px;
+    font-family: 'Montserrat';
+    color: black;
+    height: 30px;
+    /*font-weight: bold;*/
+    letter-spacing: 1.5px;
+    padding-top: 3px;
+    background-color: rgb(254, 241, 217);
+    border: 1px solid darkgrey;
+    line-height: normal;
+
+}
+
+
+
+.content-body-cell-row {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.content-body-cell-row-item,
+.content-body-cell-row-item-number,
+.content-body-cell-row-inputgroup-input,
+.detail-cell-item-text,
+.detail-cell-item-number {
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+
+    height: 30px;
+    min-width: 50px;
+
+    border: 1px solid darkgrey;
+    align-self: center;
+    color: rgb(89, 88, 88);
+    white-space: nowrap;
+    padding-left: 2%;
+    padding-right: 0;
+    border-radius: 0;
+    text-align: left;
+
+}
+
+.content-body-cell-row-item-number {
+    padding-left: 0;
+    text-align: center;
+
+}
+
+
+.content-body-cell-title-item-first {
+    padding-top: 10px;
+    height: 40px;
+    border-left-width: 1px;
+}
+
+.content-body-cell-title-item-others {
+    padding-top: 10px;
+    height: 40px;
+    border-left-width: 0px;
+}
+
+.content-body-cell-row-inputgroup-input {
+    width: auto;
+}
+
+.content-body-cell-row-inputgroup-input::placeholder {
+    color: rgb(190, 190, 190);
+}
+
+.detail-cell-item-text,
+.detail-cell-item-text-total {
+    font-size: 14px;
+    font-weight: bolder;
+    margin-top: 5px;
+    border: none;
+    /* color: rgb(40, 40, 40);*/
+    text-align: left;
+    padding-right: 2%;
+}
+
+.detail-cell-item-number,
+.detail-cell-item-number-total {
+    font-size: 14px;
+    font-weight: bolder;
+    margin-top: 5px;
+    border: none;
+    /*color: rgb(40, 40, 40);*/
+    text-align: right;
+    padding-right: 2%;
+
+}
+
+.detail-cell-item-text-total,
+.detail-cell-item-number-total {
+    font-size: 16px;
+    color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.content-body-button-agregar {
+    width: 100%;
+}
+
+.btn-outline-secondary {
+    border-radius: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.content-body-cell-separator {
+    min-height: 3px;
+}
+
+.content-body-cell-separator-bar {
+    margin-top: 10px;
+    background-color: lightgray;
+    min-height: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.autocomplete-input {
+
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 5px;
+    margin: -5px;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.autocomplete-input[type=text] {
+
+    background-color: rgba(255, 255, 0, 0.226);
+    width: 100%;
+}
+
+.autocomplete-input[type=submit] {
+    background-color: DodgerBlue;
+    color: #fff;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+}
+
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+.input-error {
+    outline: 1px solid red;
+}
+
+
+
+.empty-field {
+    /*background-color: yellow;*/
+    background-color: rgba(255, 255, 0, 0.226);
+    padding: 5px;
+
+}
+
+
+.not-eligible:focus-visible,
+.empty-field:focus-visible,
+.autocomplete-input {
+    outline: 0px;
+}

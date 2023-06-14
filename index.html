@@ -112,16 +112,18 @@
                     precios</button>
 
                 <label class="menu-sidebar-element">Planilla de datos actual</label>
-                <input class="menu-sidebar-element" placeholder="Planilla actual" id="menuSidebarFileName">
+                <input class="menu-sidebar-element" id="menuSidebarFileName">
 
                 <label class="menu-sidebar-element">Fecha última modificación</label>
-                <input class="menu-sidebar-element" placeholder="10/10/2023" id="menuSidebarFileDate">
+                <input class="menu-sidebar-element" id="menuSidebarFileDate">
 
                 <label class="menu-sidebar-element">Cantidad de productos disponibles</label>
-                <input class="menu-sidebar-element" placeholder="44" id="menuSidebarProductCount">
+                <input class="menu-sidebar-element" id="menuSidebarProductCount">
 
-                <button class="btn btn-secondary menu-sidebar-element" id="formButtonConfigurarPlanilla" disabled><i
-                        data-feather="settings" class="icon"></i> Configurar planilla</button>
+                <form action="/setup.html">
+                    <button type="submit" class="btn btn-primary menu-sidebar-element" id="formButtonConfigurarPlanilla"
+                        disabled><i data-feather="settings" class="icon"></i> Configurar planilla</button>
+                </form>
 
                 <button class="btn btn-success menu-sidebar-element" id="formButtonGuardarInfo" disabled><i
                         data-feather="save" class="icon"></i> Guardar
@@ -139,13 +141,12 @@
 
             <div class="col">
 
-
                 <div class="row content-to-print-empty" id="content-to-print-empty-message">
-                    <div class="content-outside">
-                        <h1>Abrir una planilla para empezar</h1>
+                    <div class="col-10">
+                        <h1 id="content-to-print-empty-message-text"></h1>
                     </div>
+                    <div class="col"></div>
                 </div>
-
 
 
                 <div class="row">
@@ -232,14 +233,16 @@
                                         id="formTelefono" placeholder="Teléfono de la empresa" />
                                 </div>
 
-                                <div class="row content-body-cell-title">
-                                    <div class="col-4 content-body-cell-title-item content-body-cell-title-item-first">
+                                <div class="row content-body-cell-title-product-title">
+                                    <div class="col-auto content-body-cell-title-item-column-name-id">
+                                        #</div>
+                                    <div class="col-auto content-body-cell-title-item-column-name-desc">
                                         Descripción del producto</div>
-                                    <div class="col-3 content-body-cell-title-item content-body-cell-title-item-others">
+                                    <div class="col-auto content-body-cell-title-item-column-name-price-unit">
                                         Precio x U.</div>
-                                    <div class="col-2 content-body-cell-title-item content-body-cell-title-item-others">
+                                    <div class="col-auto content-body-cell-title-item-column-name-quantity">
                                         Cantidad</div>
-                                    <div class="col-3 content-body-cell-title-item content-body-cell-title-item-others">
+                                    <div class="col-auto content-body-cell-title-item-column-name-price-total">
                                         Precio Total</div>
                                 </div>
 
@@ -251,7 +254,7 @@
 
                                 <div class="row content-body-cell-title-autocomplete " id="contentAutocomplete">
 
-                                    <div class="col-4 content-body-cell-row-item detail-cell-item-text"
+                                    <div class="col content-body-cell-row-item detail-cell-item-text"
                                         id="productFormCol">
 
                                         <form autocomplete="off" action="" id="formAutocomplete">
@@ -264,9 +267,9 @@
                                         </form>
                                     </div>
 
-                                    <div class="col-3 content-body-cell-row-item detail-cell-item-number"> </div>
+                                    <!--<div class="col-2 content-body-cell-row-item detail-cell-item-number"> </div>
                                     <div class="col-2 content-body-cell-row-item detail-cell-item-number"> </div>
-                                    <div class="col-3 content-body-cell-row-item detail-cell-item-number"> </div>
+                                    <div class="col-3 content-body-cell-row-item detail-cell-item-number"> </div>-->
                                 </div>
 
 

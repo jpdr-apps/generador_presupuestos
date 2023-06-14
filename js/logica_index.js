@@ -3,6 +3,9 @@ var persistence;
 var profile = {};
 var productData = [];
 
+const maxProducts = 20;
+
+
 const xlsPickerOpts = {
     types: [
       {
@@ -81,7 +84,7 @@ document.getElementById("buttonAbrirPlanilla").addEventListener("click", async (
 
 document.getElementById("formButtonConfigurarPlanilla").addEventListener("click", (e) => {
 
-    document.getElementById("hiddenModalButton").click();
+    //document.getElementById("hiddenModalButton").click();
 
 });
 
@@ -198,52 +201,70 @@ document.getElementById("formButtonGuardarInfo").addEventListener("click", (e) =
 
 
 
-
 /// EVENT HANDLERS ///
 
 
 function windowOnLoad(){
 
-    feather.replace();
+    feather.replace(); 
 
-    showElement("productFormCol");
-    
-    const altaDate = getFutureDate();    
-    document.getElementById("fechaAltaDia").value = altaDate.day;
-    document.getElementById("fechaAltaMes").value = altaDate.month;
-    document.getElementById("fechaAltaAnio").value = altaDate.year;
-
-    const venDate = getFutureDate(5);
-    document.getElementById("fechaVenDia").value = venDate.day;
-    document.getElementById("fechaVenMes").value = venDate.month;
-    document.getElementById("fechaVenAnio").value = venDate.year;
-
-    document.getElementById("formButtonGuardarInfo").setAttribute("disabled", "disabled");
-
-    persistence.get("configuracion")
-    .then( (configuracion) => { 
-        //if (configuracion.data.redirected){
-            if (configuracion.data.currentFileHandle !== undefined ){
+    const param = new URLSearchParams(window.location.search).get('redirected');
+   
+    if ( param === 'true' ){
+        persistence.get("configuracion")
+        .then( (configuracion) => {
+                        
             currentFileHandle = configuracion.data.currentFileHandle;
-            loadXls();       
-            window.scrollTo(0, 0);
-        }
+            
+            console.log(currentFileHandle);
 
-             
-    })
-    .catch( (error) => { console.log(error) } );
+            productData = [];
+            profile = [];
+
+            document.getElementById("menuSidebarFileName").value = "";
+            document.getElementById("menuSidebarFileDate").value = "";                
+            document.getElementById("menuSidebarProductCount").value = ""; 
+            document.getElementById("content-to-print").style.display = "none";
+            document.getElementById("formButtonGuardarInfo").setAttribute("disabled", "disabled");
+            document.getElementById("buttonGenerarPDF").setAttribute("disabled", "disabled");
+
+            loadXls();  
+
+        })
+        .catch( (error) => {console.log(error) } );        
+
+    }else{    
+    
+        document.getElementById("content-to-print").style.display = "none";
+        document.getElementById("formButtonGuardarInfo").setAttribute("disabled", "disabled");
+        document.getElementById("buttonGenerarPDF").setAttribute("disabled", "disabled");
+
+        document.getElementById("content-to-print-empty-message").style.display = "flex";
+        document.getElementById("content-to-print-empty-message-text").innerHTML = "Para comenzar, hacer click en el botón <span style='color: #0d6efd;'>'Cargar planilla de precios'</span>.";
+    
+    }
     window.scrollTo(0, 0);
 };
 
 
-
-
 async function buttonAbrirPlanillaOnClick() {
-
+    
     const fileHandles = await window.showOpenFilePicker(xlsPickerOpts)
-        .then( async (fileHandles) => { 
+        .then( async (fileHandles) => {             
             currentFileHandle = await fileHandles[0].getFile();
+
+            productData = [];
+            profile = [];
+
+            document.getElementById("menuSidebarFileName").value = "";
+            document.getElementById("menuSidebarFileDate").value = "";                
+            document.getElementById("menuSidebarProductCount").value = ""; 
+            document.getElementById("content-to-print").style.display = "none";
+            document.getElementById("formButtonGuardarInfo").setAttribute("disabled", "disabled");
+            document.getElementById("buttonGenerarPDF").setAttribute("disabled", "disabled");
+
             loadXls();           
+
             })
         .catch( (error) => {
             if (error.name === 'AbortError')
@@ -255,15 +276,23 @@ async function buttonAbrirPlanillaOnClick() {
 
 async function loadXls() {
 
-    persistence.set({ key: "configuracion", data: { currentFileHandle: currentFileHandle, redirected: false} })
+    persistence.set({ key: "configuracion", data: { currentFileHandle: currentFileHandle } })
         .catch( (error) => console.log(error) );    
     persistence.get(currentFileHandle.name)
         .then( (data) => {
             if (data === undefined){
-                document.getElementById("hiddenModalButton").click();
+
+                document.getElementById("menuSidebarFileName").value = currentFileHandle.name;
+                const fileDate = getTimestamp(currentFileHandle.lastModifiedDate);
+                const fileDateString = "" + fileDate.day + "/" + fileDate.month + "/" + fileDate.year + " " + fileDate.hours + ":" + fileDate.minutes + ":" + fileDate.seconds;                
+                document.getElementById("menuSidebarFileDate").value = fileDateString;                
+                document.getElementById("content-to-print-empty-message").style.display = "flex";
+                document.getElementById("content-to-print-empty-message-text").innerHTML = "Se deben seleccionar las hojas y columnas que contienen los productos a incluir en el presupuesto. Haga click en el botón <span style='color: #0d6efd;'>'Configurar planilla'</span>.";
+                document.getElementById("formButtonConfigurarPlanilla").removeAttribute("disabled");
+                document.getElementById("buttonGenerarPDF").setAttribute("disabled", "disabled");
+                //document.getElementById("hiddenModalButton").click();
             }else{                        
-                profile = data;                        
-                
+                profile = data;                                        
                 
                 var file = currentFileHandle;
                 if (!file)
@@ -345,6 +374,18 @@ function formInfoOnClick(e, index, header) {
 /// FUNCIONES AUXILIARES ///
 
 function fillForm(){
+
+    showElement("productFormCol");
+    
+    const altaDate = getFutureDate();    
+    document.getElementById("fechaAltaDia").value = altaDate.day;
+    document.getElementById("fechaAltaMes").value = altaDate.month;
+    document.getElementById("fechaAltaAnio").value = altaDate.year;
+
+    const venDate = getFutureDate(5);
+    document.getElementById("fechaVenDia").value = venDate.day;
+    document.getElementById("fechaVenMes").value = venDate.month;
+    document.getElementById("fechaVenAnio").value = venDate.year;
     
     document.getElementById("menuSidebarFileName").value = profile.data.fileHandle.name;
     const fileDate = getTimestamp(profile.data.fileHandle.lastModifiedDate);
@@ -356,6 +397,8 @@ function fillForm(){
     document.getElementById("content-to-print-empty-message").style.display = "none";
     document.getElementById("content-to-print").style.display = "block";
     document.getElementById("formButtonConfigurarPlanilla").removeAttribute("disabled");
+    document.getElementById("buttonGenerarPDF").removeAttribute("disabled");
+
     if ( profile.data.businessLogo !== undefined ){
         document.getElementById("formLogo").src = URL.createObjectURL(profile.data.businessLogo);
         document.getElementById("formLogo").style.borderStyle = 'none';
@@ -424,20 +467,23 @@ function selectProduct() {
     const parent = document.getElementById("contentBodyDetailParent");
 
     const row = document.createElement("div");
-    row.className = "row content-body-cell-title";
+    row.className = "row content-body-cell-title-product-row";
     row.id = "productRow" + autocompleteInput.dataset.indexId;
     row.dataset.indexId = autocompleteInput.dataset.indexId;
  
+    const colId = document.createElement("div");
+    colId.className = "col-auto detail-cell-item-id";
+    colId.innerText = Number(autocompleteInput.dataset.indexId) + 1;
     
     const colDescription = document.createElement("input");
-    colDescription.className = "col-4 content-body-cell-row-item detail-cell-item-text not-eligible";
+    colDescription.className = "col-auto detail-cell-item-desc not-eligible";
     colDescription.value = autocompleteInput.value;
     colDescription.id = "colDescription" + autocompleteInput.dataset.indexId;
     colDescription.dataset.indexId = autocompleteInput.dataset.indexId;
     colDescription.setAttribute("readonly", "readonly");    
 
     const colPrice = document.createElement("input");
-    colPrice.className = "col-3 content-body-cell-row-item detail-cell-item-number not-eligible";
+    colPrice.className = "col-auto detail-cell-item-price-unit not-eligible";
     colPrice.value = toDecimalString(autocompleteInput.dataset.price);      
     colPrice.id = "colPrice"+autocompleteInput.dataset.indexId;
     colPrice.dataset.indexId = autocompleteInput.dataset.indexId;
@@ -447,25 +493,29 @@ function selectProduct() {
     
 
     const colQuantity = document.createElement("input");
-    colQuantity.className = "col-2 content-body-cell-row-item detail-cell-item-number empty-field";
+    colQuantity.className = "col-auto detail-cell-item-quantity empty-field";
     colQuantity.id = "colQuantity"+autocompleteInput.dataset.indexId;
     colQuantity.dataset.indexId = autocompleteInput.dataset.indexId;
     setInputFilter(colQuantity, integerFilter, "Solo se permiten digitos.");    
     colQuantity.addEventListener("change", (e) => {
         if ( e.target.value !== undefined && e.target.value !== '' ){
-            e.target.className = "col-2 content-body-cell-row-item detail-cell-item-number";            
-        };        
+            e.target.className = "col-auto detail-cell-item-quantity";             
+            colChangeHandler('quantity', e.target.dataset.indexId);
+            document.getElementById("autocompleteInput").focus({ focusVisible: true });
+            document.getElementById("autocompleteInput").select();
+        };                
         e.preventDefault();
     });
     
 
     const colTotalPrice = document.createElement("div");
-    colTotalPrice.className = "col-3 content-body-cell-row-item detail-cell-item-number not-eligible"    
+    colTotalPrice.className = "col-auto detail-cell-item-price-total not-eligible"    
     colTotalPrice.id = "colTotalPrice"+autocompleteInput.dataset.indexId;
     colTotalPrice.dataset.indexId = autocompleteInput.dataset.indexId;
     colTotalPrice.dataset.number = 0;      
     colTotalPrice.setAttribute("readonly", "readonly");  
 
+    row.appendChild(colId);
     row.appendChild(colDescription);
     row.appendChild(colPrice);
     row.appendChild(colQuantity);
@@ -474,11 +524,6 @@ function selectProduct() {
 
     parent.appendChild(row);
 
- 
-    
-    colQuantity.addEventListener("change", (e) => {
-        colChangeHandler('quantity', e.target.dataset.indexId)
-    });
 
     autocompleteInput.value = '';
     autocompleteInput.dataset.price = '';
@@ -614,7 +659,7 @@ function colChangeHandler(type, index){
     
     updateTotalPrice();
 
-    if (document.getElementById("contentBodyDetailParent").children.length <= 15)
+    if (document.getElementById("contentBodyDetailParent").children.length <= maxProducts )
         document.getElementById("contentAutocomplete").style.display = "flex";
     
 

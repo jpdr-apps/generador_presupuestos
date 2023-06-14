@@ -6,6 +6,8 @@ var selectedSheets = {};
 var fileName;
 var workbook = {};
 
+var profile = {};
+/*
 var profile = {    
     key: undefined,
     data: {
@@ -18,7 +20,7 @@ var profile = {
     }    
         
 }
-
+*/
 
 /*
 
@@ -155,27 +157,24 @@ document.getElementById("formStep3ButtonConfirmar").addEventListener("click", (e
        select = document.getElementById("formStep3Data");
        
 
-        for ( const[key, value] of Object.entries(selectedSheets) ){
+        for ( const[key, value] of Object.entries(selectedSheets) ){                
                 const newOption = document.createElement("option");
                 newOption.value = key;
-                newOption.innerText = "HOJA <"+key+"> [ DESCRIPCIÓN : COLUMNA <"+ value.description + "> - PRECIO UNITARIO : COLUMNA <" + value.price +"> - FILA DE TITULOS : "+ value.titlesRow +"]";
+                newOption.innerText = "HOJA '"+key+"' [ DESCRIPCIÓN : COLUMNA '"+ value.description + "' - PRECIO UNITARIO : COLUMNA '" + value.price +"' - FILA DE TITULOS : "+ value.titlesRow +"]";                
                 select.appendChild(newOption);
 
         }
-
-        console.log(select.options);       
         
 
     }
-    console.log(selectedSheets);
+    
     }catch(error){
         console.log(error);
     }
 
-    console.log("click de boton confirmar");
-    console.log(document.getElementById("formStep3DescColumns").dataset.currentSelection);
-    console.log(document.getElementById("formStep3PriceColumns").dataset.currentSelection);
+    
     checkButton("formStep3ButtonConfirmar");
+    checkButton("formStep4Submit");
 
     e.preventDefault();
 
@@ -221,6 +220,7 @@ document.getElementById("formStep3ButtonRevertir").addEventListener("click", (e)
     }
 
     checkButton("formStep3ButtonRevertir");
+    checkButton("formStep4Submit");
  
     e.preventDefault();
 });
@@ -228,13 +228,24 @@ document.getElementById("formStep3ButtonRevertir").addEventListener("click", (e)
 
 document.getElementById("formStep4Submit").addEventListener("click", (e) => {
 
-    
-    profile.data.fileSheets = selectedSheets;
-    persistence.set(profile);        
-    persistence.set({ key: "configuracion", data: { currentFileHandle: currentFileHandle , redirected: true } })
-    document.getElementById("formProfile").submit();
-    
     e.preventDefault();
+
+    profile.data.fileSheets = selectedSheets;        
+    
+    persistence.set(profile)
+    .then( () => {    
+        persistence.set({ key: "configuracion", data: { currentFileHandle: currentFileHandle } })
+        document.getElementById("formProfile").submit();
+    }) 
+    .catch( (error) => {console.log(error)});        
+
+});
+
+
+document.getElementById("formStep4Cancel").addEventListener("click", (e) => {
+
+    e.preventDefault();    
+    document.getElementById("formProfile").submit();
 
 });
 
@@ -299,10 +310,13 @@ function windowOnLoad(){
                 persistence.get(currentFileHandle.name)
                 .then((data)=> {
                     if (data === undefined){
-                        console.log("Error: No se encontro perfil"); 
+                        //console.log("Error: No se encontro perfil");                         
+                        profile.key = currentFileHandle.name;
+                        profile.data = {};
+                        profile.data.fileHandle = currentFileHandle;
+
                     }else{             
-                        profile = data;                                      
-                        console.log(data);              
+                        profile = data;                                                              
                     }
 
                 })
@@ -388,22 +402,6 @@ function getRangeData(range) {
         lastRow: range.substring(lastCellIndex)
     }
 
-
-
-    
-
-    console.log(myRange);
-    //const firstCellIndex = myRange.match(/[0-9]+/).index;
-    //const colonIndex = myRange.match(":").index;
-    console.log(colonIndex);
-    //const lastCellIndex = colonIndex + myRange.substring(colonIndex).match(/[0-9]+/).index;
-    console.log(lastCellIndex);            
-    console.log(myRange.substring(0,firstCellIndex));
-    console.log(myRange.substring(firstCellIndex,colonIndex));
-    console.log(myRange.substring(colonIndex,colonIndex+1));
-    console.log(myRange.substring(colonIndex+1,lastCellIndex));
-    console.log(myRange.substring(lastCellIndex));
-
 };
 
 
@@ -461,23 +459,9 @@ function fileChangeHandler(file){
     reader.onload = function(e) {
         var contents = e.target.result;        
         workbook = XLSX.readFile(contents, {dense: true}/*{sheetRows: 1}*/);                        
-        
-        console.log(workbook);
 
         workbook.SheetNames.forEach( (name) => {              
             addOption("formStep2LeftSheets",name,name); 
-/*
-            const sheet = workbook.Sheets[name];             
-            const range = sheet['!ref'];
-            console.log(sheet['!cols']);
-            console.log(sheet['!data'][1][0].w);
-            const rangeData = getRangeData(range);
-            fileSheets[name] = [];
-
-            for ( var c = rangeData.firstColumn.charCodeAt(0) ; c <= rangeData.lastColumn.charCodeAt(0)  ; c++){                                        
-                fileSheets[name].push(String.fromCharCode(c));                   
-            }
-*/
         });   
 
         checkButton("formStep2ButtonAgregar");    
@@ -505,13 +489,11 @@ function removeOption(parentStringId, value){
 
     const parent = document.getElementById(parentStringId);    
     var childToRemove ;
-    console.log(value);
-    console.log(parent.childNodes);
     parent.childNodes.forEach ( (child) => {
         if (child.innerText == value)
             childToRemove = child;
     });    
-    console.log(childToRemove);
+    
     if (childToRemove !== undefined){
         parent.removeChild(childToRemove);
         sortOptions(parentStringId);
@@ -669,6 +651,14 @@ function checkButton(buttonStringId){
             break;
         };
 
+        case "formStep4Submit" : {
+
+            if ( document.getElementById("formStep3Data").length < 1) {                
+                disable = true;
+            }
+
+            break;
+        };
 
         
     }

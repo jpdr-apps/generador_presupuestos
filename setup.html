@@ -63,7 +63,7 @@
 
 
     <div class="container-fluid">
-
+        <!--
         <div class="row fixed-top  menu-toolbar bg-dark">
             <div class="col-12">
                 <div class="row menu-toolbar-title">
@@ -77,27 +77,54 @@
                     <div class="col-3">
                     </div>
                     <div class="col-3">
-                        <!-- Button trigger modal -->
-                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop" id="hiddenModalButton" style="display: none;">
-                            Launch static backdrop modal
-                        </button>
+                          Button trigger modal  
+        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            id="hiddenModalButton" style="display: none;">
+            Launch static backdrop modal
+        </button>
+
+    </div>
+
+    </div>
+    </div>
+    </div>
+    -->
+        <div class="row fixed-top  menu-toolbar bg-dark">
+            <div class="col-12">
+                <div class="row menu-toolbar-options">
+                    <div class="col">
 
                     </div>
+                    <div class="col">
+                        <h3>Generador de presupuestos</h3>
+                    </div>
 
+                    <div class="col">
+
+                    </div>
+                    <!-- Button trigger modal -->
+                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" id="hiddenModalButton" style="display: none;">
+                        Launch static backdrop modal
+                    </button>
                 </div>
             </div>
+
         </div>
 
-        <div class="row flex-nowrap menu-content">
+        <div class="row flex-nowrap menu-content menu-content-setup">
 
-            <form id="formProfile" action="/index.html">
+            <form id="formProfile" action="/index.html" method="get">
+
+                <h1 class="menu-content-setup-title">Página de configuración de planillas de productos</h1>
 
                 <div class="mb-3 menu-content-row">
-                    <h4 class="">Archivo Excel origen de los productos:</h4>
+                    <h4 class="">Archivo origen de los productos:</h4>
                     <div class="input-group">
-                        <div class="col-6">
+                        <div class="col-5">
                             <label class="form-control" id="formStep1Label"></label>
+                        </div>
+                        <div class="col">
                         </div>
                     </div>
                 </div>
@@ -111,9 +138,11 @@
                                 size="5">
                             </select>
                         </div>
-                        <div class="col-2">
-                            <button class="btn btn-primary" id="formStep2ButtonAgregar">Agregar -></button>
-                            <button class="btn btn-primary" id="formStep2ButtonQuitar"> <- Quitar</button>
+                        <div class="col-2 menu-setup-col">
+                            <button class="btn btn-secondary menu-setup-col-btn" id="formStep2ButtonAgregar">Agregar
+                                -></button>
+                            <button class="btn btn-secondary menu-setup-col-btn" id="formStep2ButtonQuitar"> <-
+                                    Quitar</button>
                         </div>
                         <div class="col-3">
                             <label>Hojas elegidas</label>
@@ -121,10 +150,14 @@
                                 size="5">
                             </select>
                         </div>
-                        <div class="col-3">
-                            <button class="btn btn-primary" id="formStep2ButtonConfirmar">Confirmar Hojas</button>
+                        <div class="col-2 menu-setup-col">
+
+
+
                         </div>
                     </div>
+                    <button class="btn btn-primary menu-setup-btn-solo" id="formStep2ButtonConfirmar">Confirmar
+                        Hojas</button>
                 </div>
                 <div class="mb-3 menu-content-row">
                     <h4 class="">Por cada hoja, definir las columnas que tienen la Descripción y el Precio
@@ -156,9 +189,9 @@
                             </select>
                         </div>
                     </div>
-                    <br>
-                    <button class="btn btn-primary" id="formStep3ButtonConfirmar">Confirmar selección de
-                        columnas</button>
+                    <button class="btn btn-primary  menu-setup-btn-solo" id="formStep3ButtonConfirmar"
+                        disabled>Confirmar
+                        selección</button>
 
                 </div>
 
@@ -167,31 +200,33 @@
                 <div class="mb-3 menu-content-row">
 
                     <div class="input-group align-items-center">
-                        <div class="col-6">
+                        <div class="col-9">
                             <label>Hojas definidas</label>
                             <select id="formStep3Data" class="form-select" multiple aria-label="multiple select "
                                 size="5">
                             </select>
                         </div>
-                        <div class="col-6">
-                            <button class="btn btn-primary" id="formStep3ButtonRevertir">Revertir selección de
-                                columnas</button>
+                        <div class="col">
                         </div>
+
                     </div>
+                    <button class="btn btn-primary menu-setup-btn-solo" id="formStep3ButtonRevertir" disabled>Revertir
+                        selección</button>
                 </div>
 
 
 
                 <div class="mb-3 menu-content-row">
-                    <h4>Controlar y luego presionar "Finalizar" para Salir:</h4>
-                    <div class="input-group">
-                        <div class="input-group">
-                            <div class="col-3">
-                                <button id="formStep4Submit" type="submit" class="btn btn-primary">Finalizar</button>
-                            </div>
-                        </div>
-                    </div>
+                    <h4>Controlar y luego presionar "Finalizar" para Salir, o "Cancelar" para volver a la página
+                        principal</h4>
+                    <button id="formStep4Submit" type="button" class="btn btn-success menu-setup-btn-solo"
+                        disabled>Finalizar</button>
+                    <button id="formStep4Cancel" type="button"
+                        class="btn btn-secondary menu-setup-btn-solo">Cancelar</button>
                 </div>
+
+                <input name="redirected" value="true" style="display: none;" id="inputURLRedirected">
+
             </form>
 
         </div>

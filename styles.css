@@ -4,6 +4,7 @@ body {
 
 .menu-toolbar {
     color: white;
+    height: 75px;
     /*padding-top: 1%;*/
 
 }
@@ -18,7 +19,7 @@ body {
     position: fixed;
     /*margin-top: 1%;*/
     /*height: 50%;*/
-    margin-top: 5%;
+    margin-top: 50px;
     width: 20%;
     border-style: solid;
     border-width: 1px;
@@ -112,8 +113,16 @@ body {
 
 .menu-content {
     font-family: 'Montserrat';
-    margin-top: 2%;
+    margin-top: 50px;
     padding-bottom: 100px;
+}
+
+.menu-content-setup {
+    margin-top: 100px;
+}
+
+.menu-content-setup-title {
+    padding-left: 3%;
 }
 
 .menu-content-row {
@@ -125,8 +134,10 @@ body {
     padding-bottom: 1%;
 }
 
-.menu-content-row .col-3,
-.col-6 {
+.menu-content-row,
+.col-3,
+.col-6,
+.col-9 {
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -241,23 +252,26 @@ body {
 
 @keyframes glowing {
     0% {
+        border-color: #2ba805;
         background-color: #2ba805;
         /*box-shadow: 0 0 5px #2ba805;*/
     }
 
     50% {
+        border-color: #49e819;
         background-color: #49e819;
         /*box-shadow: 0 0 20px #49e819;*/
     }
 
     100% {
+        border-color: #2ba805;
         background-color: #2ba805;
         /*box-shadow: 0 0 5px #2ba805;*/
     }
 }
 
 .btn-success:enabled {
-    margin-top: 10%;
+    /*margin-top: 10%;*/
     box-shadow: 1px 1px 1px 1px darkgray;
     animation: glowing 1300ms infinite;
 }
@@ -285,7 +299,9 @@ body {
 .content-body-cell-title,
 .content-body-cell-title-autocomplete,
 .content-body-cell-row-inputgroup,
-.content-body-cell-row-inputgroup-parent {
+.content-body-cell-row-inputgroup-parent,
+.content-body-cell-title-product-title,
+.content-body-cell-title-product-row {
     min-height: 30px;
     min-width: 150px;
     text-align: center;
@@ -295,6 +311,15 @@ body {
 
 .content-body-cell-title {
     padding-bottom: 0;
+}
+
+.content-body-cell-title-product-title {
+    margin-bottom: 10px;
+}
+
+.content-body-cell-title-product-row {
+    min-height: 0px;
+    max-height: 24px;
 }
 
 .content-body-cell-title-autocomplete {
@@ -311,7 +336,12 @@ body {
     padding-bottom: 3px;
 }
 
-.content-body-cell-title-item {
+.content-body-cell-title-item,
+.content-body-cell-title-item-column-name-id,
+.content-body-cell-title-item-column-name-desc,
+.content-body-cell-title-item-column-name-price-unit,
+.content-body-cell-title-item-column-name-quantity,
+.content-body-cell-title-item-column-name-price-total {
     font-size: 14px;
     font-family: 'Montserrat';
     color: black;
@@ -325,6 +355,43 @@ body {
 
 }
 
+.content-body-cell-title-item-column-name-id,
+.content-body-cell-title-item-column-name-desc,
+.content-body-cell-title-item-column-name-price-unit,
+.content-body-cell-title-item-column-name-quantity,
+.content-body-cell-title-item-column-name-price-total {
+    padding-top: 10px;
+    height: 40px;
+    border-left-width: 0px;
+}
+
+.content-body-cell-title-item-column-name-id {
+    border-left-width: 1px;
+    width: 5%;
+}
+
+.content-body-cell-title-item-column-name-desc {
+    width: 40%;
+}
+
+.content-body-cell-title-item-column-name-price-unit {
+    width: 20%;
+}
+
+.content-body-cell-title-item-column-name-quantity {
+    width: 13%;
+}
+
+.content-body-cell-title-item-column-name-price-total {
+    width: 22%;
+}
+
+
+
+#contentBodyDetailParent {
+    margin-bottom: 10px;
+}
+
 
 
 .content-body-cell-row {
@@ -336,12 +403,18 @@ body {
 .content-body-cell-row-item-number,
 .content-body-cell-row-inputgroup-input,
 .detail-cell-item-text,
-.detail-cell-item-number {
+.detail-cell-item-number,
+.detail-cell-item-id,
+.detail-cell-item-desc,
+.detail-cell-item-price-unit,
+.detail-cell-item-quantity,
+.detail-cell-item-price-total {
     font-size: 14px;
     font-weight: bold;
     font-family: 'Courier New', Courier, monospace;
 
     height: 30px;
+    /*min-height: 0px;*/
     min-width: 50px;
 
     border: 1px solid darkgrey;
@@ -356,25 +429,18 @@ body {
 }
 
 .content-body-cell-row-item-number {
-    padding-left: 0;
+    padding: 0;
     text-align: center;
 
 }
 
 
-.content-body-cell-title-item-first {
-    padding-top: 10px;
-    height: 40px;
-    border-left-width: 1px;
-}
 
-.content-body-cell-title-item-others {
-    padding-top: 10px;
-    height: 40px;
-    border-left-width: 0px;
-}
 
 .content-body-cell-row-inputgroup-input {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
     width: auto;
 }
 
@@ -383,25 +449,64 @@ body {
 }
 
 .detail-cell-item-text,
-.detail-cell-item-text-total {
+.detail-cell-item-text-total,
+.detail-cell-item-desc {
     font-size: 14px;
     font-weight: bolder;
-    margin-top: 5px;
+    /*margin-top: 5px;*/
     border: none;
     /* color: rgb(40, 40, 40);*/
     text-align: left;
     padding-right: 2%;
+    min-height: 0;
+}
+
+#contentBodyDetailParent {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
 }
 
 .detail-cell-item-number,
+.detail-cell-item-id,
+.detail-cell-item-price-unit,
+.detail-cell-item-quantity,
+.detail-cell-item-price-total,
 .detail-cell-item-number-total {
     font-size: 14px;
     font-weight: bolder;
-    margin-top: 5px;
+    /*margin-top: 5px;*/
     border: none;
     /*color: rgb(40, 40, 40);*/
     text-align: right;
     padding-right: 2%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    min-height: 0;
+
+}
+
+.detail-cell-item-id {
+    padding-left: 0;
+    padding-right: 1%;
+    min-width: 0;
+    width: 5%;
+}
+
+.detail-cell-item-desc {
+    width: 40%;
+}
+
+.detail-cell-item-price-unit {
+    width: 20%;
+}
+
+.detail-cell-item-quantity {
+    width: 13%;
+}
+
+.detail-cell-item-price-total {
+    width: 22%;
 
 }
 
@@ -410,6 +515,8 @@ body {
     font-size: 16px;
     color: black;
 }
+
+
 
 
 
@@ -545,4 +652,24 @@ body {
 .empty-field:focus-visible,
 .autocomplete-input {
     outline: 0px;
+}
+
+.menu-setup-col {
+    padding-top: 1%;
+    text-align: center;
+}
+
+.menu-setup-col-btn,
+.menu-setup-btn-solo {
+    min-width: 120px;
+    margin: 5%;
+    box-shadow: 1px 1px 1px 1px darkgray;
+
+}
+
+.menu-setup-btn-solo {
+    min-width: 200px;
+    margin: 0;
+    margin-top: 1%;
+    margin-left: 1%;
 }

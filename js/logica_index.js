@@ -748,6 +748,18 @@ function generarPDF() {
                 }
             )
 
+           
+
+            doc.setProperties({
+                title: 'Presupuesto',
+                subject: 'Presupuesto generado automaticamente',		
+                author: 'Generador de Presupuestos',
+                keywords: 'javascript, presupuestos, pdf',
+                creator: 'Generador de Presupuestos'
+            });
+
+            console.log(doc);
+
             var width = doc.internal.pageSize.getWidth()
             var height = doc.internal.pageSize.getHeight()
 
@@ -770,7 +782,10 @@ function generarPDF() {
             document.getElementById("contentFooter").className += " custom-info";
 
         }
-        ).catch((error) => {productInputCol.display = currentDisplay;});
+        ).catch((error) => { 
+            console.log(error);
+            showElement("productFormCol")
+        });
 
 
         
